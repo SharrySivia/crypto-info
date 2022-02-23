@@ -12,6 +12,7 @@ function Sidebar() {
         <div className="navigation">
           <NavLink exact to="/" className="link" activeClassName="active">
             Dashboard
+            <div className="active-mark"></div>
           </NavLink>
           <NavLink
             exact
@@ -20,12 +21,15 @@ function Sidebar() {
             activeClassName="active"
           >
             Watchlist
+            <div className="active-mark"></div>
           </NavLink>
           <NavLink exact to="/signin" className="link" activeClassName="active">
             Signin
+            <div className="active-mark"></div>
           </NavLink>
           <NavLink exact to="/signup" className="link" activeClassName="active">
             Signup
+            <div className="active-mark"></div>
           </NavLink>
         </div>
         <a
