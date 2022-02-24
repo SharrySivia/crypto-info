@@ -1,0 +1,15 @@
+@use "../../variables.scss";
+
+.signin {
+  margin: 1rem;
+  background-color: #fff;
+  border-radius: 10px;
+
+  .heading {
+    margin: 1.5rem 4rem;
+    display: inline-block;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: variables.$color-primary;
+  }
+}

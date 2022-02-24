@@ -5,8 +5,24 @@
   background-color: #fff;
   border-radius: 10px;
 
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1.5rem 4rem;
+    .heading {
+      display: inline-block;
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: variables.$color-primary;
+      // margin: 1.5rem 4rem;
+      // margin-bottom: 1rem;
+      // padding-bottom: 0.5rem;
+    }
+  }
+
   .headings {
-    margin: 2rem 4rem;
+    margin: 1rem 4rem;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     // text-align: center;

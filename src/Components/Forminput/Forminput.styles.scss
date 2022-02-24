@@ -1,0 +1,14 @@
+@use "../../variables";
+
+.form-input {
+  padding: 0.4rem 0.5rem;
+  border-radius: 10px;
+  color: variables.$color-secondary;
+  border: 2px solid variables.$color-bg;
+  outline: none;
+  transition: border-color 0.15s ease-in-out;
+
+  &:focus {
+    border-color: variables.$color-primary;
+  }
+}
