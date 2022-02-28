@@ -4,6 +4,8 @@
   margin: 1rem;
   background-color: #fff;
   border-radius: 10px;
+  overflow: scroll;
+  overflow-x: hidden;
 
   .header {
     display: flex;
