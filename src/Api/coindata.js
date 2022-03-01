@@ -8,4 +8,9 @@ async function getCoindata() {
   return data;
 }
 
-export { getCoindata };
+function subscribeToWSCoinData(assets) {
+  const conn = new WebSocket(`wss://ws.coincap.io/prices?assets=${assets}`);
+  return conn;
+}
+
+export { getCoindata, subscribeToWSCoinData };

@@ -1,18 +1,24 @@
-.coin-details {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  margin: 0 4rem;
-  margin-bottom: 2rem;
-  gap: 5rem;
-  align-items: center;
+@use "../../variables.scss";
 
+.coin-details {
   .coin-title {
-    grid-column: 1 / span 2;
     display: flex;
     align-items: center;
     .icon {
       height: 22px;
       margin-right: 0.5rem;
     }
+  }
+
+  .coin-current {
+    transition: color 0.2s ease-in-out;
+  }
+
+  .increasing {
+    color: rgba(0, 256, 0, 0.9);
+  }
+
+  .decreasing {
+    color: rgba(256, 0, 0, 0.9);
   }
 }
