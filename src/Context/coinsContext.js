@@ -12,6 +12,7 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_COINS_DATA":
       return {
+        ...state,
         coinsData: action.payload.coinsData,
         coinsIndex: action.payload.coinsIndex,
       };
@@ -19,6 +20,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         coinsData: action.payload,
+        isLoading: false,
       };
     default:
       throw new Error("Undefined action type");

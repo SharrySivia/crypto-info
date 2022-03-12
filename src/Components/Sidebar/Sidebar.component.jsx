@@ -9,24 +9,34 @@ function Sidebar() {
     <div className="sidebar">
       <h1 className="logo">Cryptoinfo</h1>
       <div className="navigation">
-        <NavLink exact to="/" className="link" activeClassName="active">
+        <NavLink exact="true" to="/" className="link" activeclassname="active">
           Dashboard
           <div className="active-mark"></div>
         </NavLink>
         <NavLink
-          exact
+          exact="true"
           to="/watchlist"
           className="link"
-          activeClassName="active"
+          activeclassname="active"
         >
           Watchlist
           <div className="active-mark"></div>
         </NavLink>
-        <NavLink exact to="/signin" className="link" activeClassName="active">
+        <NavLink
+          exact="true"
+          to="/signin"
+          className="link"
+          activeclassname="active"
+        >
           Signin
           <div className="active-mark"></div>
         </NavLink>
-        <NavLink exact to="/signup" className="link" activeClassName="active">
+        <NavLink
+          exact="true"
+          to="/signup"
+          className="link"
+          activeclassname="active"
+        >
           Signup
           <div className="active-mark"></div>
         </NavLink>
