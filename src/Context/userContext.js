@@ -4,7 +4,7 @@ export const UserContext = createContext();
 
 const initialState = {
   user: undefined,
-  watchlist: [],
+  watchlist: JSON.parse(localStorage.getItem("Watchlist")) || [],
 };
 
 const reducer = (state, action) => {
@@ -13,6 +13,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         watchlist: [...state.watchlist, action.payload],
+      };
+    case "REMOVE_FROM_WATCHLIST":
+      return {
+        ...state,
+        watchlist: action.payload,
       };
     default:
       throw new Error("Undefined action type");

@@ -4,7 +4,8 @@
   margin: 1rem;
   background-color: #fff;
   border-radius: 10px;
-  overflow: scroll;
+
+  overflow-y: scroll;
   overflow-x: hidden;
 
   .header {
@@ -24,6 +25,7 @@
   }
 
   .cryptocurrency-details-container {
+    height: 100%;
     margin: 1rem 4rem;
     display: grid;
     grid-template-columns: repeat(5, 1fr);

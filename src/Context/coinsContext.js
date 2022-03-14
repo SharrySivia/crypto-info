@@ -29,9 +29,9 @@ const reducer = (state, action) => {
 
 export const CoinsDataProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
+  const coinsState = state;
   return (
-    <CoinsContext.Provider value={[state, dispatch]}>
+    <CoinsContext.Provider value={[coinsState, dispatch]}>
       {children}
     </CoinsContext.Provider>
   );

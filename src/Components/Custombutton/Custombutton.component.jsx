@@ -1,8 +1,13 @@
 import "./Custombutton.styles.scss";
 
-function CustomButton({ text, handleClick }) {
+function CustomButton({ text, handleClick, isDisabled }) {
   return (
-    <button className="custom-btn" type="button" onClick={handleClick}>
+    <button
+      className="custom-btn"
+      type="button"
+      onClick={handleClick}
+      disabled={isDisabled}
+    >
       {text}
     </button>
   );

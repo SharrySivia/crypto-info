@@ -11,6 +11,8 @@ function CoinDetails({
   isLoading,
   index,
   handleClick,
+  buttonText,
+  inWatchlist,
 }) {
   return (
     <div className="coin-details row">
@@ -30,7 +32,8 @@ function CoinDetails({
           : ""}
       </span>
       <CustomButton
-        text="Add to watchlist"
+        text={buttonText}
+        isDisabled={inWatchlist}
         handleClick={() => handleClick({ index, id })}
       />
     </div>

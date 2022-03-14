@@ -4,6 +4,8 @@
   margin: 1rem;
   background-color: #fff;
   border-radius: 10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
   .heading {
     margin: 1.5rem 4rem;
@@ -11,5 +13,28 @@
     font-size: 1.6rem;
     font-weight: 500;
     color: variables.$color-primary;
+  }
+
+  .container {
+    margin: 1rem 4rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5rem;
+    row-gap: 2rem;
+
+    .headings {
+      span {
+        color: variables.$color-secondary;
+        font-weight: 500;
+      }
+    }
+
+    .row {
+      display: contents;
+
+      & > :first-child {
+        grid-column: 1 / span 2;
+      }
+    }
   }
 }
