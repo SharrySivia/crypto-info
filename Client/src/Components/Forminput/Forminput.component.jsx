@@ -1,12 +1,22 @@
 import "./Forminput.styles.scss";
 
-function FormInput({ type, placeholder, handleChange }) {
+function FormInput({
+  type,
+  value,
+  name,
+  placeholder,
+  handleChange,
+  isRequired,
+}) {
   return (
     <input
       className="form-input"
+      name={name}
+      value={value}
       type={type}
       placeholder={placeholder}
-      onChange={(e) => handleChange(e.target.value)}
+      required={isRequired}
+      onChange={(e) => handleChange(e.target)}
     />
   );
 }

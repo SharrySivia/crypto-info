@@ -16,8 +16,8 @@ function Dashboard() {
   const [searchQuery, setSearchQuery] = useState(null);
   const [, dispatch] = useContext(UserContext);
 
-  const handleChange = (inputText) => {
-    setSearchQuery(inputText);
+  const handleChange = (input) => {
+    setSearchQuery(input.value);
   };
 
   const handleClick = (data) => {
@@ -48,6 +48,7 @@ function Dashboard() {
         <h3 className="heading">Dashboard</h3>
         <FormInput
           type="text"
+          name="search"
           placeholder="Search"
           handleChange={handleChange}
         />

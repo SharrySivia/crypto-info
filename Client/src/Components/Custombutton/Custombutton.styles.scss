@@ -30,4 +30,30 @@
       box-shadow: none;
     }
   }
+
+  &-primary {
+    background-color: variables.$color-primary;
+    color: #ffff;
+    padding: 1rem;
+    border: 2px solid transparent;
+    cursor: pointer;
+
+    &:hover {
+      background-color: transparent;
+      color: variables.$color-primary-light;
+      border-color: variables.$color-primary-light;
+    }
+
+    &:disabled {
+      background-color: variables.$color-bg;
+      color: rgb(105, 105, 105);
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: variables.$color-bg;
+        color: rgb(105, 105, 105);
+        border-color: transparent;
+      }
+    }
+  }
 }

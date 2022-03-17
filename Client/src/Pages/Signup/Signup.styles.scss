@@ -12,4 +12,24 @@
     font-weight: 500;
     color: variables.$color-primary;
   }
+
+  .inputs-container {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .form-input {
+      margin: 1rem;
+      padding: 1rem;
+      width: 40%;
+    }
+
+    .custom-btn {
+      width: 40%;
+      margin: 1rem;
+    }
+  }
 }
