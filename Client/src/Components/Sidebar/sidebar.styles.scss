@@ -76,6 +76,14 @@
         }
       }
     }
+
+    .userinfo {
+      cursor: pointer;
+      color: variables.$color-secondary;
+      text-transform: capitalize;
+      font-weight: 500;
+      margin: 1rem;
+    }
   }
 
   .footer-link {

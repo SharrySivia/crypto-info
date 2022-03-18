@@ -1,10 +1,20 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { UserContext } from "../../Context/userContext";
 
 import BuymeacoffeeImg from "../../Assets/bmc-full-logo-no-background.png";
 
 import "./sidebar.styles.scss";
 
 function Sidebar() {
+  const [{ user }, dispatch] = useContext(UserContext);
+
+  const handleClick = () => {
+    localStorage.removeItem("User");
+    dispatch({
+      type: "LOGOUT",
+    });
+  };
   return (
     <div className="sidebar">
       <h1 className="logo">Cryptoinfo</h1>
@@ -22,24 +32,32 @@ function Sidebar() {
           Watchlist
           <div className="active-mark"></div>
         </NavLink>
-        <NavLink
-          exact="true"
-          to="/signin"
-          className="link"
-          activeclassname="active"
-        >
-          Signin
-          <div className="active-mark"></div>
-        </NavLink>
-        <NavLink
-          exact="true"
-          to="/signup"
-          className="link"
-          activeclassname="active"
-        >
-          Signup
-          <div className="active-mark"></div>
-        </NavLink>
+        {user ? (
+          <span className="userinfo" onClick={handleClick}>
+            {user.username}
+          </span>
+        ) : (
+          <>
+            <NavLink
+              exact="true"
+              to="/signin"
+              className="link"
+              activeclassname="active"
+            >
+              Signin
+              <div className="active-mark"></div>
+            </NavLink>
+            <NavLink
+              exact="true"
+              to="/signup"
+              className="link"
+              activeclassname="active"
+            >
+              Signup
+              <div className="active-mark"></div>
+            </NavLink>
+          </>
+        )}
       </div>
       <a
         className="footer-link"

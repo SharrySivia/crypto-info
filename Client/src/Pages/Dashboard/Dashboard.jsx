@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 
 import { CoinsContext } from "../../Context/coinsContext.js";
 import { UserContext } from "../../Context/userContext.js";
+import { addToWatchlist } from "../../Api/user.js";
 
 import FormInput from "../../Components/Forminput/Forminput.component";
 import CoinDetails from "../../Components/Coindetails/Coindetails.component";
@@ -9,31 +10,29 @@ import CoinDetails from "../../Components/Coindetails/Coindetails.component";
 import "./Dashboard.styles.scss";
 
 function Dashboard() {
-  const [coinsState] = useContext(CoinsContext);
-  const { coinsData, isLoading } = coinsState;
-  const [state] = useContext(UserContext);
-  const { watchlist } = state;
+  const [{ coinsData, isLoading }] = useContext(CoinsContext);
+  const [{ user, watchlist }, dispatch] = useContext(UserContext);
   const [searchQuery, setSearchQuery] = useState(null);
-  const [, dispatch] = useContext(UserContext);
 
   const handleChange = (input) => {
     setSearchQuery(input.value);
   };
 
-  const handleClick = (data) => {
-    const storedList = localStorage.getItem("Watchlist");
-    if (storedList) {
-      localStorage.setItem(
-        "Watchlist",
-        JSON.stringify([...JSON.parse(storedList), data])
-      );
-    } else {
-      localStorage.setItem("Watchlist", JSON.stringify([data]));
-    }
-    dispatch({
-      type: "ADD_TO_WATCHLIST",
-      payload: data,
+  const handleClick = async (data) => {
+    const { watchlist, err } = await addToWatchlist({
+      userId: user.id,
+      watchlist: data,
     });
+
+    if (!err) {
+      localStorage.setItem("watchlist", JSON.stringify(watchlist));
+      dispatch({
+        type: "ADD_TO_WATCHLIST",
+        payload: watchlist,
+      });
+    } else {
+      console.log(err.message);
+    }
   };
 
   const filteredCoinsData = searchQuery

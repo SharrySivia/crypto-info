@@ -3,16 +3,26 @@ import { createContext, useReducer } from "react";
 export const UserContext = createContext();
 
 const initialState = {
-  user: undefined,
-  watchlist: JSON.parse(localStorage.getItem("Watchlist")) || [],
+  user: JSON.parse(localStorage.getItem("User")) || null,
+  watchlist: JSON.parse(localStorage.getItem("watchlist")) || [],
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case "ADD_USER":
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case "LOGOUT":
+      return {
+        user: null,
+        watchlist: [],
+      };
     case "ADD_TO_WATCHLIST":
       return {
         ...state,
-        watchlist: [...state.watchlist, action.payload],
+        watchlist: [...action.payload],
       };
     case "REMOVE_FROM_WATCHLIST":
       return {

@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+
+import { signup } from "../../Api/user.js";
+import { UserContext } from "../../Context/userContext.js";
 
 import FormInput from "../../Components/Forminput/Forminput.component";
 import CustomButton from "../../Components/Custombutton/Custombutton.component";
@@ -13,16 +16,25 @@ function Signup() {
     password: null,
   });
   const { email, username, password } = userInfo;
+  const [, dispatch] = useContext(UserContext);
 
   const handleChange = (input) => {
     setUserInfo({ ...userInfo, [input.name]: input.value });
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     let regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
     const isEmailValid = regex.test(userInfo.email);
     if (isEmailValid) {
-      console.log(userInfo);
+      const { user, err } = await signup(userInfo);
+      if (!err) {
+        dispatch({
+          type: "ADD_USER",
+          payload: user,
+        });
+      } else {
+        console.log(err);
+      }
     } else {
       console.log("Invalid email");
     }

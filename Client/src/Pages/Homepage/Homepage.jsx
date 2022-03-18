@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Sidebar from "../../Components/Sidebar/Sidebar.component";
 import Dashboard from "../Dashboard/Dashboard";
 import Watchlist from "../Watchlist/Watchlist";
@@ -7,12 +7,14 @@ import Signin from "../Signin/Signin";
 import Signup from "../Signup/Signup";
 
 import { CoinsContext } from "../../Context/coinsContext.js";
+import { UserContext } from "../../Context/userContext";
 import { getAllCoindata, subscribeToWSCoinData } from "../../Api/coindata";
 
 import "./Homepage.styles.scss";
 
 function Homepage() {
   const [, dispatch] = useContext(CoinsContext);
+  const [{ user }] = useContext(UserContext);
 
   const connectionRef = useRef(null);
 
@@ -85,8 +87,14 @@ function Homepage() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="watchlist" element={<Watchlist />} />
-        <Route path="signin" element={<Signin />} />
-        <Route path="signup" element={<Signup />} />
+        <Route
+          path="signin"
+          element={user ? <Navigate replace to="/" /> : <Signin />}
+        />
+        <Route
+          path="signup"
+          element={user ? <Navigate replace to="/" /> : <Signup />}
+        />
       </Routes>
     </div>
   );

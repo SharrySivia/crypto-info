@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
 import FormInput from "../../Components/Forminput/Forminput.component";
 import CustomButton from "../../Components/Custombutton/Custombutton.component";
+import { UserContext } from "../../Context/userContext";
 import { login } from "../../Api/user";
 
 import "./Signin.styles.scss";
@@ -10,6 +11,8 @@ import "./Signin.styles.scss";
 function Signin() {
   const [userInfo, setUserInfo] = useState({ email: null, password: null });
   const { email, password } = userInfo;
+  const [err, setErr] = useState(null);
+  const [, dispatch] = useContext(UserContext);
 
   const handleChange = (input) => {
     setUserInfo({ ...userInfo, [input.name]: input.value });
@@ -20,7 +23,15 @@ function Signin() {
     const isEmailValid = regex.test(userInfo.email);
     if (isEmailValid) {
       const { user, err } = await login(userInfo);
-      console.log(user, err);
+      if (!err) {
+        localStorage.setItem("User", JSON.stringify(user));
+        dispatch({
+          type: "ADD_USER",
+          payload: user,
+        });
+      } else {
+        setErr(err.message);
+      }
     } else {
       console.log("Invalid email");
     }

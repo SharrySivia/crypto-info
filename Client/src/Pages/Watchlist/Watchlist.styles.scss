@@ -7,6 +7,24 @@
   overflow-y: scroll;
   overflow-x: hidden;
 
+  .error-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem;
+    .image {
+      height: 200px;
+    }
+    .error {
+      color: variables.$color-secondary;
+      font-weight: 500;
+      margin-top: auto;
+      margin-bottom: auto;
+      margin: 2rem;
+    }
+  }
+
   .heading {
     margin: 1.5rem 4rem;
     display: inline-block;

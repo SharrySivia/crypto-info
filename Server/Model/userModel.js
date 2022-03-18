@@ -13,6 +13,9 @@ const UserSchema = mongoose.Schema({
     type: String,
     require: true,
   },
+  watchlist: {
+    type: mongoose.Schema.Types.Array,
+  },
 });
 
 module.exports = mongoose.model("Users", UserSchema);
