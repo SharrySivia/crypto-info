@@ -6,6 +6,7 @@ import { UserContext } from "../../Context/userContext.js";
 
 import FormInput from "../../Components/Forminput/Forminput.component";
 import CustomButton from "../../Components/Custombutton/Custombutton.component";
+import ErrorModal from "../../Components/Errormodal/Errormodal.component.jsx";
 
 import "./Signup.styles.scss";
 
@@ -16,9 +17,13 @@ function Signup() {
     password: null,
   });
   const { email, username, password } = userInfo;
+  const [error, setError] = useState({ type: null, message: null });
   const [, dispatch] = useContext(UserContext);
 
   const handleChange = (input) => {
+    if (error.message) {
+      setError({ type: null, message: null });
+    }
     setUserInfo({ ...userInfo, [input.name]: input.value });
   };
 
@@ -33,10 +38,10 @@ function Signup() {
           payload: user,
         });
       } else {
-        console.log(err);
+        setError({ type: null, message: err });
       }
     } else {
-      console.log("Invalid email");
+      setError({ type: "email", message: "Invalid email address" });
     }
   };
 
@@ -44,6 +49,7 @@ function Signup() {
     <div className="signup">
       <h3 className="heading">Signup</h3>
       <div className="inputs-container">
+        {error.message && <ErrorModal varient="error" text={error.message} />}
         <FormInput
           placeholder="Username"
           name="username"
@@ -51,6 +57,7 @@ function Signup() {
           type="text"
           isRequired={true}
           handleChange={handleChange}
+          err={error}
         />
         <FormInput
           placeholder="Email"
@@ -59,6 +66,7 @@ function Signup() {
           type="email"
           isRequired={true}
           handleChange={handleChange}
+          err={error}
         />
         <FormInput
           placeholder="Password"
@@ -67,11 +75,12 @@ function Signup() {
           type="password"
           isRequired={true}
           handleChange={handleChange}
+          err={error}
         />
         <CustomButton
           text="Signup"
           varient="primary"
-          isDisabled={!email || !username || !password}
+          isDisabled={!email || !username || !password || error.message}
           handleClick={handleClick}
         />
         <p>

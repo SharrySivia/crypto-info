@@ -14,7 +14,7 @@ async function login(userInfo) {
   if (result.status !== 200) {
     return { user: null, err: data.message };
   } else {
-    return { user: data, err: null };
+    return { user: data.user, watchlist: data.watchlist, err: null };
   }
 }
 

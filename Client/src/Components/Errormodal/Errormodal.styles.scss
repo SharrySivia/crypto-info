@@ -1,0 +1,7 @@
+.error-modal {
+  border-radius: 10px;
+  font-size: 0.9rem;
+  &.error {
+    color: red;
+  }
+}

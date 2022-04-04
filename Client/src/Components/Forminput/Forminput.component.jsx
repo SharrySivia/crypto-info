@@ -7,10 +7,13 @@ function FormInput({
   placeholder,
   handleChange,
   isRequired,
+  err,
 }) {
   return (
     <input
-      className="form-input"
+      className={`form-input ${
+        err.message ? (!err.type || err.type === name ? "err" : "") : ""
+      }`}
       name={name}
       value={value}
       type={type}

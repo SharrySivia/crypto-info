@@ -16,7 +16,10 @@ exports.login = async (req, res) => {
     const token = getToken({ email: user.email });
     res
       .status(200)
-      .json({ username: user._doc.name, id: user._doc._id, ...token });
+      .json({
+        user: { username: user._doc.name, id: user._doc._id, ...token },
+        watchlist: user._doc.watchlist,
+      });
   } else {
     res.status(404).json({ message: "Invalid username or password!" });
   }

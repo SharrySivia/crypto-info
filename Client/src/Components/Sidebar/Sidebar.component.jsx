@@ -11,6 +11,7 @@ function Sidebar() {
 
   const handleClick = () => {
     localStorage.removeItem("User");
+    localStorage.removeItem("watchlist");
     dispatch({
       type: "LOGOUT",
     });

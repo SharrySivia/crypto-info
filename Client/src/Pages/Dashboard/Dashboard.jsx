@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { CoinsContext } from "../../Context/coinsContext.js";
 import { UserContext } from "../../Context/userContext.js";
@@ -17,8 +18,12 @@ function Dashboard() {
   const handleChange = (input) => {
     setSearchQuery(input.value);
   };
+  const navigate = useNavigate();
 
   const handleClick = async (data) => {
+    if (!user) {
+      navigate("/signin");
+    }
     const { watchlist, err } = await addToWatchlist({
       userId: user.id,
       watchlist: data,
@@ -50,6 +55,7 @@ function Dashboard() {
           name="search"
           placeholder="Search"
           handleChange={handleChange}
+          err={{ message: null }}
         />
       </div>
       <div className="cryptocurrency-details-container">

@@ -2,8 +2,23 @@ import { createContext, useReducer } from "react";
 
 export const UserContext = createContext();
 
+const getUser = () => {
+  const user = JSON.parse(localStorage.getItem("User"));
+  if (user) {
+    const expiry = new Date(user.expiry);
+    if (expiry > Date.now()) {
+      return user;
+    } else {
+      localStorage.removeItem("User");
+      return null;
+    }
+  } else {
+    return null;
+  }
+};
+
 const initialState = {
-  user: JSON.parse(localStorage.getItem("User")) || null,
+  user: getUser(),
   watchlist: JSON.parse(localStorage.getItem("watchlist")) || [],
 };
 
@@ -12,7 +27,8 @@ const reducer = (state, action) => {
     case "ADD_USER":
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.user,
+        watchlist: action.payload.watchlist,
       };
     case "LOGOUT":
       return {
