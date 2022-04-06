@@ -8,13 +8,19 @@ import Signup from "../Signup/Signup";
 
 import { CoinsContext } from "../../Context/coinsContext.js";
 import { UserContext } from "../../Context/userContext";
-import { getAllCoindata, subscribeToWSCoinData } from "../../Api/coindata";
+import {
+  getAllCoindata,
+  subscribeToWSCoinData,
+  getCoinData,
+} from "../../Api/coindata";
+
+import { updateWatchlist } from "../../Api/user";
 
 import "./Homepage.styles.scss";
 
 function Homepage() {
   const [, dispatch] = useContext(CoinsContext);
-  const [{ user }] = useContext(UserContext);
+  const [{ user, watchlist }] = useContext(UserContext);
 
   const connectionRef = useRef(null);
 
@@ -38,6 +44,45 @@ function Homepage() {
         };
       });
 
+      //Checking if the coins in the watchlist are present in the fetched coins list
+      // let watchlistUpdated = false;
+      //   watchlist.forEach(async (coin) => {
+      //     const currentCoinIndex = coinsIndex[coin.id];
+      //     if (currentCoinIndex >= 0) {
+      //       if (coin.index !== currentCoinIndex) {
+      //         coin.index = currentCoinIndex;
+      //         watchlistUpdated = true;
+      //         console.log("Coin is present, but index is different");
+      //       } else {
+      //         console.log("Coin is present and index is same");
+      //       }
+      //     } else {
+      //       console.log("Coin is not present in the fetched list");
+      //       console.log("Fetching");
+      //       const data = await getCoinData(coin.id);
+
+      //       const fetchedCoin = {
+      //         id: data.id,
+      //         index: coinsData.length,
+      //         symbol: data.symbol,
+      //         name: data.name,
+      //         image: data.image.thumb,
+      //         current_price: data.market_data.current_price.usd,
+      //         low_24h: data.market_data.low_24h.usd,
+      //         status: "steady",
+      //       };
+      //       assests.push(coin.id);
+      //       coinsIndex[coin.id] = coinsData.length;
+      //       coinsData.push(fetchedCoin);
+      //       watchlistUpdated = true;
+      //     }
+      //   });
+
+      // if (watchlistUpdated) {
+      //   console.log(watchlist);
+      //   // const {watchlist, err} = await updateWatchlist({userId: user.id, watchlist: watchlist});
+      // }
+      // console.log(coinsData);
       dispatch({
         type: "ADD_COINS_DATA",
         payload: {
@@ -79,7 +124,7 @@ function Homepage() {
     // window.addEventListener("beforeunload", () => {
     //   connectionRef.current.close();
     // });
-  }, [dispatch]);
+  }, [dispatch, watchlist]);
 
   return (
     <div className="homepage">

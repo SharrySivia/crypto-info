@@ -36,7 +36,7 @@ async function signup(userInfo) {
   }
 }
 
-async function addToWatchlist({ userId, watchlist }) {
+async function updateWatchlist({ userId, watchlist }) {
   const result = await fetch(`${API_URL}/watchlist`, {
     method: "POST",
     headers: {
@@ -54,22 +54,4 @@ async function addToWatchlist({ userId, watchlist }) {
   }
 }
 
-async function updateWatchlist({ userId, updatedWatchlist }) {
-  const result = await fetch(`${API_URL}/watchlist`, {
-    method: "PUT",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({ userId, updatedWatchlist }),
-  });
-
-  const data = await result.json();
-
-  if (result.status !== 200) {
-    return { watchlist: null, err: data.message };
-  } else {
-    return { watchlist: data.watchlist, err: null };
-  }
-}
-
-export { login, signup, addToWatchlist, updateWatchlist };
+export { login, signup, updateWatchlist };

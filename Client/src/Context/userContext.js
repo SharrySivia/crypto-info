@@ -10,6 +10,7 @@ const getUser = () => {
       return user;
     } else {
       localStorage.removeItem("User");
+      localStorage.removeItem("watchlist");
       return null;
     }
   } else {

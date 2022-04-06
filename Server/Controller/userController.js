@@ -14,12 +14,10 @@ exports.login = async (req, res) => {
 
   if (isPasswordSame) {
     const token = getToken({ email: user.email });
-    res
-      .status(200)
-      .json({
-        user: { username: user._doc.name, id: user._doc._id, ...token },
-        watchlist: user._doc.watchlist,
-      });
+    res.status(200).json({
+      user: { username: user._doc.name, id: user._doc._id, ...token },
+      watchlist: user._doc.watchlist,
+    });
   } else {
     res.status(404).json({ message: "Invalid username or password!" });
   }
@@ -45,21 +43,7 @@ exports.addToWatchlist = async (req, res) => {
   const user = await User.findById(userId);
 
   if (user) {
-    user.watchlist = [...user.watchlist, watchlist];
-    const result = await user.save();
-    res.status(200).json({ id: userId, watchlist: result._doc.watchlist });
-  } else {
-    res.status(404).json({ message: "Invalid Id" });
-  }
-};
-
-exports.updateWatchlist = async (req, res) => {
-  const { userId, updatedWatchlist } = req.body;
-
-  const user = await User.findById(userId);
-
-  if (user) {
-    user.watchlist = [...updatedWatchlist];
+    user.watchlist = watchlist;
     const result = await user.save();
     res.status(200).json({ id: userId, watchlist: result._doc.watchlist });
   } else {

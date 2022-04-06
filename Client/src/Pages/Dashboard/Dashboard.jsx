@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { CoinsContext } from "../../Context/coinsContext.js";
 import { UserContext } from "../../Context/userContext.js";
-import { addToWatchlist } from "../../Api/user.js";
+import { updateWatchlist } from "../../Api/user.js";
 
 import FormInput from "../../Components/Forminput/Forminput.component";
 import CoinDetails from "../../Components/Coindetails/Coindetails.component";
@@ -24,16 +24,18 @@ function Dashboard() {
     if (!user) {
       navigate("/signin");
     }
-    const { watchlist, err } = await addToWatchlist({
+
+    const updatedWatchlist = [...watchlist, data];
+    const { watchlist: wl, err } = await updateWatchlist({
       userId: user.id,
-      watchlist: data,
+      watchlist: updatedWatchlist,
     });
 
     if (!err) {
-      localStorage.setItem("watchlist", JSON.stringify(watchlist));
+      localStorage.setItem("watchlist", JSON.stringify(wl));
       dispatch({
         type: "ADD_TO_WATCHLIST",
-        payload: watchlist,
+        payload: wl,
       });
     } else {
       console.log(err.message);

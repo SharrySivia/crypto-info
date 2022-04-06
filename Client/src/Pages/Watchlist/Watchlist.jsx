@@ -20,7 +20,7 @@ function Watchlist() {
 
     const { err } = await updateWatchlist({
       userId: user.id,
-      updatedWatchlist,
+      watchlist: updatedWatchlist,
     });
 
     if (!err) {
