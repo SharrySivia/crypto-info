@@ -46,6 +46,11 @@ const reducer = (state, action) => {
         ...state,
         watchlist: action.payload,
       };
+    case "UPDATE_WATCHLIST":
+      return {
+        ...state,
+        watchlist: action.payload.watchlist,
+      };
     default:
       throw new Error("Undefined action type");
   }

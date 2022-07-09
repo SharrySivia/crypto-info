@@ -49,24 +49,26 @@ function Watchlist() {
             <span>Current Price (US$)</span>
             <span>Action</span>
           </div>
-          {watchlist.map((coin) => {
-            const coinData = coinsState.coinsData[coin.index];
-            return (
-              <CoinDetails
-                key={coin.index}
-                id={coinData.id}
-                coinIcon={coinData.image}
-                coinName={coinData.name}
-                coinLow={coinData.low_24h}
-                coinCurrent={coinData.current_price}
-                status={coinData.status}
-                isLoading={false}
-                index={coin.index}
-                handleClick={handleClick}
-                buttonText="Remove from list"
-              />
-            );
-          })}
+          {watchlist &&
+            watchlist.map((coin) => {
+              const coinData = coinsState.coinsData[coin.index];
+              console.log(coin);
+              return (
+                <CoinDetails
+                  key={coin.index}
+                  id={coinData.id}
+                  coinIcon={coinData.image}
+                  coinName={coinData.name}
+                  coinLow={coinData.low_24h}
+                  coinCurrent={coinData.current_price}
+                  status={coinData.status}
+                  isLoading={false}
+                  index={coin.index}
+                  handleClick={handleClick}
+                  buttonText="Remove from list"
+                />
+              );
+            })}
         </div>
       ) : (
         <div className="error-container">

@@ -20,7 +20,8 @@ import "./Homepage.styles.scss";
 
 function Homepage() {
   const [, dispatch] = useContext(CoinsContext);
-  const [{ user, watchlist }] = useContext(UserContext);
+  const [{ user, watchlist }, userDispatch = dispatch] =
+    useContext(UserContext);
 
   const connectionRef = useRef(null);
 
@@ -45,49 +46,51 @@ function Homepage() {
       });
 
       //Checking if the coins in the watchlist are present in the fetched coins list
-      // let watchlistUpdated = false;
-      //   watchlist.forEach(async (coin) => {
-      //     const currentCoinIndex = coinsIndex[coin.id];
-      //     if (currentCoinIndex >= 0) {
-      //       if (coin.index !== currentCoinIndex) {
-      //         coin.index = currentCoinIndex;
-      //         watchlistUpdated = true;
-      //         console.log("Coin is present, but index is different");
-      //       } else {
-      //         console.log("Coin is present and index is same");
-      //       }
-      //     } else {
-      //       console.log("Coin is not present in the fetched list");
-      //       console.log("Fetching");
-      //       const data = await getCoinData(coin.id);
+      let promises = watchlist.map((coin, i) => {
+        const currentCoinIndex = coinsIndex[coin.id];
+        if (currentCoinIndex >= 0) {
+          if (coin.index !== currentCoinIndex) {
+            watchlist[i].index = currentCoinIndex;
+            console.log("Coin is present, but index is different");
+          }
+        } else {
+          console.log("Coin is not present in the fetched list");
+          console.log("Fetching");
+          return getCoinData(coin.id);
+        }
+      });
+      const fetchedCoins = await Promise.all(promises);
 
-      //       const fetchedCoin = {
-      //         id: data.id,
-      //         index: coinsData.length,
-      //         symbol: data.symbol,
-      //         name: data.name,
-      //         image: data.image.thumb,
-      //         current_price: data.market_data.current_price.usd,
-      //         low_24h: data.market_data.low_24h.usd,
-      //         status: "steady",
-      //       };
-      //       assests.push(coin.id);
-      //       coinsIndex[coin.id] = coinsData.length;
-      //       coinsData.push(fetchedCoin);
-      //       watchlistUpdated = true;
-      //     }
-      //   });
+      fetchedCoins.forEach((coin) => {
+        const coinData = {
+          id: coin.id,
+          index: coinsData.length,
+          symbol: coin.symbol,
+          name: coin.name,
+          image: coin.image.thumb,
+          current_price: coin.market_data.current_price.usd,
+          low_24h: coin.market_data.low_24h.usd,
+          status: "steady",
+        };
+        assests.push(coin.id);
+        coinsIndex[coin.id] = coinsData.length;
+        watchlist[watchlist.findIndex((c) => c.id === coin.id)].index =
+          coinsData.length;
+        coinsData.push(coinData);
+      });
 
-      // if (watchlistUpdated) {
-      //   console.log(watchlist);
-      //   // const {watchlist, err} = await updateWatchlist({userId: user.id, watchlist: watchlist});
-      // }
-      // console.log(coinsData);
       dispatch({
         type: "ADD_COINS_DATA",
         payload: {
           coinsData,
           coinsIndex,
+        },
+      });
+
+      userDispatch({
+        type: "UPDATE_WATCHLIST",
+        payload: {
+          watchlist,
         },
       });
 
