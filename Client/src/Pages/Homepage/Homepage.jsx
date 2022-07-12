@@ -94,6 +94,10 @@ function Homepage() {
         },
       });
 
+      if (user) {
+        await updateWatchlist({ userId: user.id, watchlist });
+      }
+
       // const conn = subscribeToWSCoinData(assests.join(","));
       // connectionRef.current = conn;
       // conn.onmessage = (event) => {
@@ -127,7 +131,7 @@ function Homepage() {
     // window.addEventListener("beforeunload", () => {
     //   connectionRef.current.close();
     // });
-  }, [dispatch, watchlist]);
+  }, [dispatch, watchlist, user, userDispatch]);
 
   return (
     <div className="homepage">
