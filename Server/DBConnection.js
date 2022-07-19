@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(
-      `mongodb://localhost:27017/cryptoinfo`,
+      `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.08tw0.mongodb.net/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority`,
       { useNewUrlParser: true, useUnifiedTopology: true }
     );
     console.info(`MongoDB connected: ${conn.connection.host}`);
