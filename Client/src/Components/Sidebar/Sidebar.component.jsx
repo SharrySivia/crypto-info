@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { UserContext } from "../../Context/userContext";
 
@@ -8,6 +8,7 @@ import "./sidebar.styles.scss";
 
 function Sidebar() {
   const [{ user }, dispatch] = useContext(UserContext);
+  const [open, setIsOpen] = useState(false);
 
   const handleClick = () => {
     localStorage.removeItem("User");
@@ -17,8 +18,18 @@ function Sidebar() {
     });
   };
   return (
-    <div className="sidebar">
-      <h1 className="logo">Cryptoinfo</h1>
+    <div className={`sidebar ${open ? "open" : ""}`}>
+      <div className="logo-container">
+        <h1 className="logo">Cryptoinfo</h1>
+        <div
+          className={`hamburger ${open ? "open" : ""}`}
+          onClick={() => setIsOpen(!open)}
+        >
+          <div className="stroke"></div>
+          <div className="stroke"></div>
+          <div className="stroke"></div>
+        </div>
+      </div>
       <div className="navigation">
         <NavLink exact="true" to="/" className="link" activeclassname="active">
           Dashboard

@@ -101,39 +101,39 @@ function Homepage() {
         await updateWatchlist({ userId: user.id, watchlist });
       }
 
-      const conn = subscribeToWSCoinData(assests.join(","));
-      connectionRef.current = conn;
-      conn.onmessage = (event) => {
-        const eventData = JSON.parse(event.data);
-        // console.log(eventData);
-        for (const coin in eventData) {
-          const coinIndex = coinsIndex[coin];
-          const prevPrice = Number(coinsData[coinIndex].current_price);
-          const updatedPrice = Number(eventData[coin]);
-          let status = "";
-          if (prevPrice > updatedPrice) {
-            status = "Decreasing";
-          } else if (prevPrice < updatedPrice) {
-            status = "Increasing";
-          } else {
-            status = "Steady";
-          }
-          coinsData[coinIndex].current_price = updatedPrice;
-          coinsData[coinIndex].status = status;
-        }
+      // const conn = subscribeToWSCoinData(assests.join(","));
+      // connectionRef.current = conn;
+      // conn.onmessage = (event) => {
+      //   const eventData = JSON.parse(event.data);
+      //   // console.log(eventData);
+      //   for (const coin in eventData) {
+      //     const coinIndex = coinsIndex[coin];
+      //     const prevPrice = Number(coinsData[coinIndex].current_price);
+      //     const updatedPrice = Number(eventData[coin]);
+      //     let status = "";
+      //     if (prevPrice > updatedPrice) {
+      //       status = "Decreasing";
+      //     } else if (prevPrice < updatedPrice) {
+      //       status = "Increasing";
+      //     } else {
+      //       status = "Steady";
+      //     }
+      //     coinsData[coinIndex].current_price = updatedPrice;
+      //     coinsData[coinIndex].status = status;
+      //   }
 
-        dispatch({
-          type: "UPDATE_COINS_DATA",
-          payload: coinsData,
-        });
-      };
+      //   dispatch({
+      //     type: "UPDATE_COINS_DATA",
+      //     payload: coinsData,
+      //   });
+      // };
     };
 
     getData();
 
-    window.addEventListener("beforeunload", () => {
-      connectionRef.current.close();
-    });
+    // window.addEventListener("beforeunload", () => {
+    //   connectionRef.current.close();
+    // });
   }, [dispatch, watchlist, user, userDispatch]);
 
   return (
