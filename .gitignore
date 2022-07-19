@@ -1,4 +1,5 @@
 Client/node_modules
+Client/README.md
 Server/node_modules
 npm-debug.log
 .DS_Store
