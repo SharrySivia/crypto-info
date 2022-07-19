@@ -4,7 +4,7 @@
   "description": "Cryptoinfo_server",
   "main": "index.js",
   "engines": {
-    "node": "14.x"
+    "node": "14.16.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
