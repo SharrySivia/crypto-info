@@ -46,7 +46,8 @@ function Homepage() {
       });
 
       //Checking if the coins in the watchlist are present in the fetched coins list
-      let promises = watchlist.map((coin, i) => {
+      let promises = [];
+      watchlist.forEach((coin, i) => {
         const currentCoinIndex = coinsIndex[coin.id];
         if (currentCoinIndex >= 0) {
           if (coin.index !== currentCoinIndex) {
@@ -56,28 +57,30 @@ function Homepage() {
         } else {
           console.log("Coin is not present in the fetched list");
           console.log("Fetching");
-          return getCoinData(coin.id);
+          promises.push(getCoinData(coin.id));
         }
       });
-      const fetchedCoins = await Promise.all(promises);
 
-      fetchedCoins.forEach((coin) => {
-        const coinData = {
-          id: coin.id,
-          index: coinsData.length,
-          symbol: coin.symbol,
-          name: coin.name,
-          image: coin.image.thumb,
-          current_price: coin.market_data.current_price.usd,
-          low_24h: coin.market_data.low_24h.usd,
-          status: "steady",
-        };
-        assests.push(coin.id);
-        coinsIndex[coin.id] = coinsData.length;
-        watchlist[watchlist.findIndex((c) => c.id === coin.id)].index =
-          coinsData.length;
-        coinsData.push(coinData);
-      });
+      if (promises.length) {
+        const fetchedCoins = await Promise.all(promises);
+        fetchedCoins.forEach((coin) => {
+          const coinData = {
+            id: coin.id,
+            index: coinsData.length,
+            symbol: coin.symbol,
+            name: coin.name,
+            image: coin.image.thumb,
+            current_price: coin.market_data.current_price.usd,
+            low_24h: coin.market_data.low_24h.usd,
+            status: "steady",
+          };
+          assests.push(coin.id);
+          coinsIndex[coin.id] = coinsData.length;
+          watchlist[watchlist.findIndex((c) => c.id === coin.id)].index =
+            coinsData.length;
+          coinsData.push(coinData);
+        });
+      }
 
       dispatch({
         type: "ADD_COINS_DATA",
