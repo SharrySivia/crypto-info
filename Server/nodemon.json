@@ -1,8 +1,0 @@
-{
-  "env": {
-    "PORT": "3000",
-    "MONGO_USER": "Sharry",
-    "MONGO_PASSWORD": "y6xy4CLLxtwT39JU",
-    "MONGO_DATABASE": "cryptoinfo"
-  }
-}
