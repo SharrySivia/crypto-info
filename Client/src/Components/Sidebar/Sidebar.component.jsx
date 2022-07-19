@@ -63,8 +63,6 @@ function Sidebar() {
       <a
         className="footer-link"
         href="https://www.buymeacoffee.com/sharrysivia"
-        target="_blank"
-        ref="norefenrence"
       >
         <img src={BuymeacoffeeImg} alt="Buy Me A Coffee" />
       </a>
