@@ -33,9 +33,8 @@ function CoinDetails({
           : ""}
       </span>
       <CustomButton
-        isLoading={loading}
         text={buttonText}
-        isDisabled={inWatchlist}
+        isDisabled={inWatchlist || loading}
         handleClick={() => handleClick({ index, id })}
       />
     </div>
