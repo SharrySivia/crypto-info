@@ -16,6 +16,8 @@ function Signup() {
     email: null,
     password: null,
   });
+
+  const [loading, setLoading] = useState(false);
   const { email, username, password } = userInfo;
   const [error, setError] = useState({ type: null, message: null });
   const [, dispatch] = useContext(UserContext);
@@ -31,11 +33,12 @@ function Signup() {
     let regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
     const isEmailValid = regex.test(userInfo.email);
     if (isEmailValid) {
+      setLoading(!loading);
       const { user, err } = await signup(userInfo);
       if (!err) {
         dispatch({
           type: "ADD_USER",
-          payload: user,
+          payload: { user, watchlist: [] },
         });
       } else {
         setError({ type: null, message: err });
@@ -43,6 +46,7 @@ function Signup() {
     } else {
       setError({ type: "email", message: "Invalid email address" });
     }
+    setLoading(false);
   };
 
   return (
@@ -79,8 +83,11 @@ function Signup() {
         />
         <CustomButton
           text="Signup"
+          isLoading={loading}
           varient="primary"
-          isDisabled={!email || !username || !password || error.message}
+          isDisabled={
+            !email || !username || !password || error.message || loading
+          }
           handleClick={handleClick}
         />
         <p>

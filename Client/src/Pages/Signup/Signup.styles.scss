@@ -5,12 +5,20 @@
   background-color: #fff;
   border-radius: 10px;
 
+  @media (max-width: 840px) {
+    margin: 0;
+  }
+
   .heading {
     margin: 1.5rem 4rem;
     display: inline-block;
     font-size: 1.6rem;
     font-weight: 500;
     color: variables.$color-primary;
+
+    @media (max-width: 840px) {
+      margin: 1rem;
+    }
   }
 
   .inputs-container {
@@ -21,15 +29,27 @@
     justify-content: center;
     align-items: center;
 
+    @media (max-width: 840px) {
+      margin: 2rem auto;
+    }
+
     .form-input {
       margin: 1rem;
       padding: 1rem;
       width: 40%;
+
+      @media (max-width: 840px) {
+        width: 80%;
+      }
     }
 
     .custom-btn {
       width: 40%;
       margin: 1rem;
+
+      @media (max-width: 840px) {
+        width: 80%;
+      }
     }
   }
 }

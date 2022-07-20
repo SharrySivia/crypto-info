@@ -11,6 +11,15 @@
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 
+  i {
+    color: variables.$color-primary-light;
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 840px) {
+    font-size: 0.9rem;
+  }
+
   &:hover {
     color: #fff;
     background-color: variables.$color-bg;

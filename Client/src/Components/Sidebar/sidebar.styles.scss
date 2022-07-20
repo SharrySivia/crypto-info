@@ -21,18 +21,9 @@
     }
   }
 
-  .logo-container {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
   .hamburger {
     width: 20px;
-    // height: 30px;
     display: none;
-    margin-left: auto;
 
     .stroke {
       margin: 0.2rem;
@@ -52,7 +43,7 @@
         transform: rotate(45deg) translateY(10px);
       }
       .stroke:nth-child(2) {
-        transform: translateX(40px);
+        transform: translateX(100px);
       }
       .stroke:nth-child(3) {
         transform: rotate(-45deg) translateY(-10px);
@@ -69,6 +60,13 @@
     .hamburger {
       display: block;
     }
+
+    .logo-container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
   .logo {
     margin: 0;
@@ -77,7 +75,7 @@
     font-family: "Dancing Script", cursive;
     font-size: 2.2rem;
     @media (max-width: 840px) {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
     }
   }
   .navigation {
@@ -108,8 +106,9 @@
       cursor: pointer;
 
       @media (max-width: 840px) {
-        font-size: 0.5rem;
+        font-size: 0.8rem;
         margin: 0;
+        // padding: 0.3rem;
       }
 
       .icon {
@@ -131,6 +130,10 @@
         background-color: transparent;
         border-radius: 8px 0 0 8px;
         transition: background-color 0.2s ease-in-out;
+
+        @media (max-width: 840px) {
+          height: 15px;
+        }
       }
     }
     .active {

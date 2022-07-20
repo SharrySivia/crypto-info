@@ -1,6 +1,6 @@
 import "./Custombutton.styles.scss";
 
-function CustomButton({ text, handleClick, isDisabled, varient }) {
+function CustomButton({ text, handleClick, isDisabled, varient, isLoading }) {
   return (
     <button
       className={`custom-btn ${varient ? `custom-btn-${varient}` : ""}`}
@@ -8,7 +8,7 @@ function CustomButton({ text, handleClick, isDisabled, varient }) {
       onClick={handleClick}
       disabled={isDisabled}
     >
-      {text}
+      {isLoading ? <i class="fas fa-circle-notch fa-spin"></i> : text}
     </button>
   );
 }

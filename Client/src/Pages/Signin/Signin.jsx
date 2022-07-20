@@ -11,6 +11,7 @@ import "./Signin.styles.scss";
 
 function Signin() {
   const [userInfo, setUserInfo] = useState({ email: null, password: null });
+  const [loading, setLoading] = useState(false);
   const { email, password } = userInfo;
   const [error, setError] = useState({ type: null, message: null });
   const [, dispatch] = useContext(UserContext);
@@ -23,6 +24,7 @@ function Signin() {
   };
 
   const handleClick = async () => {
+    setLoading(!loading);
     let regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
     const isEmailValid = regex.test(userInfo.email);
     if (isEmailValid) {
@@ -40,6 +42,7 @@ function Signin() {
     } else {
       setError({ type: "email", message: "Invalid email address!" });
     }
+    setLoading(false);
   };
 
   return (
@@ -67,9 +70,10 @@ function Signin() {
         />
         <CustomButton
           text="Signin"
+          isLoading={loading}
           varient="primary"
           handleClick={handleClick}
-          isDisabled={!email || !password || error.message}
+          isDisabled={!email || !password || error.message || loading}
         />
         <p>
           Don't have a account? <Link to="/signup">Signup</Link> here.
