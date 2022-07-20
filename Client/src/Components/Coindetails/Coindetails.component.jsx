@@ -9,6 +9,7 @@ function CoinDetails({
   coinCurrent,
   status,
   isLoading,
+  loading,
   index,
   handleClick,
   buttonText,
@@ -32,6 +33,7 @@ function CoinDetails({
           : ""}
       </span>
       <CustomButton
+        isLoading={loading}
         text={buttonText}
         isDisabled={inWatchlist}
         handleClick={() => handleClick({ index, id })}

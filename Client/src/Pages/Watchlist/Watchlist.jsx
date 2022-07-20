@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { UserContext } from "../../Context/userContext.js";
 import { CoinsContext } from "../../Context/coinsContext.js";
@@ -11,9 +11,11 @@ import "./Watchlist.styles.scss";
 
 function Watchlist() {
   const [coinsState] = useContext(CoinsContext);
+  const [loading, setLoading] = useState(false);
   const [{ user, watchlist }, dispatch] = useContext(UserContext);
 
   const handleClick = async ({ index }) => {
+    setLoading(true);
     const updatedWatchlist = watchlist.filter((coin) => {
       return coin.index !== index;
     });
@@ -32,6 +34,7 @@ function Watchlist() {
     } else {
       console.log(err.message);
     }
+    setLoading(false);
   };
 
   return (
@@ -63,6 +66,7 @@ function Watchlist() {
                   coinCurrent={coinData.current_price}
                   status={coinData.status}
                   isLoading={false}
+                  loading={loading}
                   index={coin.index}
                   handleClick={handleClick}
                   buttonText="Remove from list"

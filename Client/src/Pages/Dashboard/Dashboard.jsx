@@ -12,6 +12,7 @@ import "./Dashboard.styles.scss";
 
 function Dashboard() {
   const [{ coinsData, isLoading }] = useContext(CoinsContext);
+  const [loading, setLoading] = useState(false);
   const [{ user, watchlist }, dispatch] = useContext(UserContext);
   const [searchQuery, setSearchQuery] = useState(null);
 
@@ -24,6 +25,7 @@ function Dashboard() {
     if (!user) {
       navigate("/signin");
     }
+    setLoading(true);
 
     const updatedWatchlist = [...watchlist, data];
     const { watchlist: wl, err } = await updateWatchlist({
@@ -40,6 +42,7 @@ function Dashboard() {
     } else {
       console.log(err.message);
     }
+    setLoading(false);
   };
 
   const filteredCoinsData = searchQuery
@@ -81,6 +84,7 @@ function Dashboard() {
               coinCurrent={coin.current_price}
               status={coin.status}
               isLoading={isLoading}
+              loading={loading}
               handleClick={handleClick}
               buttonText={inWatchlist ? "In watchlist" : "Add to watchlist"}
               inWatchlist={inWatchlist}

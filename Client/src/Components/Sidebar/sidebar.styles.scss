@@ -44,6 +44,7 @@
       }
       .stroke:nth-child(2) {
         transform: translateX(100px);
+        display: none;
       }
       .stroke:nth-child(3) {
         transform: rotate(-45deg) translateY(-10px);
